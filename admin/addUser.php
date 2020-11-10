@@ -58,10 +58,10 @@ if (isset($_POST["register"])) {
             $mail->Host = 'smtp.gmail.com';
             $mail->Port = '587';
             $mail->SMTPAuth = true;
-            $mail->Username = 'artur.chrominski21@gmail.com';
-            $mail->Password = 'HEXbinARTch2';
+            $mail->Username = '';//email
+            $mail->Password = '';//hasło
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->From = 'artur.chrominski21@gmail.com';
+            $mail->From = '';//email
             $mail->FromName = 'Mail Weryfikacyjny TEPTA';
             $mail->AddAddress($_POST['user_email'], $_POST['user_name']);
             $mail->WordWrap = 50;
