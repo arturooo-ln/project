@@ -1,10 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db = "shop_db";
-$con = mysqli_connect($servername, $username, $password,$db);
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
+try {
+$connect = new PDO('mysql:host=localhost;dbname=shop_db', 'root', '');
+} catch(PDOException $e) {
+
 }
 ?>

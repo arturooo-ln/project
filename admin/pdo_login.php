@@ -1,12 +1,6 @@
 <?php
-session_start();
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "shop_db";
-$message = "";
+include('connect.php');
 try {
-     $connect = new PDO("mysql:host=$host; dbname=$database", $username, $password);
      $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
      if (isset($_POST["login"])) {
           if (empty($_POST["username"]) || empty($_POST["password"])) {
