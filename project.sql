@@ -27,17 +27,33 @@ CREATE TABLE `category` (
 CREATE TABLE `orderDetail` (
   `orderId` int(10) NOT NULL,
   `userId` int(11) NOT NULL,
+  `paymentId` int(11) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `adres` varchar(50) NOT NULL,
   `postalCode` int(10) NOT NULL,
   `city` varchar(50) NOT NULL,
   `voivodeship` varchar(50) NOT NULL,
+  `productQuantity` int(15) DEFAULT NULL,
+  `totalPrice` int(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `orderProduct` (
+  `orderId` int(10) NOT NULL,
+  `orderproductId` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
+  `productQuantity` int(15) DEFAULT NULL,
+  `productPrice` int(15) NOT NULL,
+  `details` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `orderPayment` (
+  `paymentId` int(10) NOT NULL,
+  `orderId` int(10) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `paymenttype` varchar(30) NOT NULL,
   `cardName` varchar(50) NOT NULL,
   `cardNumber` varchar(20) NOT NULL,
   `cardCode` int(3) NOT NULL,
-  `productQuantity` int(15) DEFAULT NULL,
-  `totalPrice` int(15) DEFAULT NULL
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 CREATE TABLE `product` (
   `productId` int(11) NOT NULL,
@@ -63,6 +79,10 @@ ALTER TABLE `orderDetail`
   ADD KEY `users` (`userId`);
 ALTER TABLE `product`
   ADD PRIMARY KEY (`productId`);
+  ALTER TABLE `orderPayment`
+  ADD PRIMARY KEY (`paymentId`);
+  ALTER TABLE `orderProduct`
+  ADD PRIMARY KEY (`orderproductId`);
   
   
 ALTER TABLE `admin`
@@ -82,5 +102,11 @@ ALTER TABLE `orderDetail`
   
 ALTER TABLE `product`
   MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
+  
+  ALTER TABLE `orderPayment`
+  MODIFY `paymentId` int(11) NOT NULL AUTO_INCREMENT;
+  
+  ALTER TABLE `orderProduct`
+  MODIFY `orderproductId` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
   
