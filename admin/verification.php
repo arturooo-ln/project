@@ -1,13 +1,12 @@
 <?php
 include('connect.php');
-
 $message = '';
 if (isset($_GET['activation_code'])) {
-	$query = "SELECT * FROM register_user WHERE user_activation_code = :user_activation_code";
+	$query = "SELECT * FROM users WHERE userActivation = :userActivation";
 	$statement = $connect->prepare($query);
 	$statement->execute(
 		array(
-			':user_activation_code'	=>	$_GET['activation_code']
+			':userActivation'	=>	$_GET['activation_code']
 		)
 	);
 	$no_of_row = $statement->rowCount();
@@ -15,8 +14,8 @@ if (isset($_GET['activation_code'])) {
 	if ($no_of_row > 0) {
 		$result = $statement->fetchAll();
 		foreach ($result as $row) {
-			if ($row['user_email_status'] == 'not verified') {
-				$update_query = "UPDATE register_user SET user_email_status = 'verified' WHERE register_user_id = '" . $row['register_user_id'] . "'";
+			if ($row['userStatus'] == 'not verified') {
+				$update_query = "UPDATE users SET userStatus = 'verified' WHERE userId = '" . $row['userId'] . "'";
 				$statement = $connect->prepare($update_query);
 				$statement->execute();
 				$sub_result = $statement->fetchAll();
@@ -34,19 +33,15 @@ if (isset($_GET['activation_code'])) {
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>PHP Register Login Script with Email Verification</title>
+	<title>Weryfikacja</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-
 	<div class="container">
 		<h3><?php echo $message; ?></h3>
 	</div>
 </body>
-
 </html>
