@@ -1,18 +1,16 @@
 <?php
-include 'head.php';
-include 'connect.php';
+require_once ('connect.php');
+move_uploaded_file($_FILES["image"]["tmp_name"],"uploads/" . $_FILES["image"]["name"]);	
+$location=$_FILES["image"]["name"];
+$productName= $_POST['productName'];
+$productBrand= $_POST['productBrand'];
+$productCategory= $_POST['productCategory'];
+$productTitle= $_POST['productTitle'];
+$productPrice= $_POST['productPrice'];
+$productDiscription= $_POST['productDiscription'];
+$connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$sql = "INSERT INTO product (productName, productBrand, productCategory, productTitle, productPrice, productDiscription ,productImage)
+VALUES ('$productName', '$productBrand', '$productCategory', '$productTitle', '$productPrice', '$productDiscription', '$location')";
+$connect->exec($sql);
+echo "<script>alert('Produkt został pomyślnie dodany'); window.location='viewProduct.php'</script>";
 ?>
-
-<body>
-    <?php
-    include 'navbar.php'
-    ?>
-    <div class="row">
-        <?php
-        include 'menu.php'
-        ?>
-        <div class="col-md-9 items">     
-                  
-        </div>
-    </div>
-</body>

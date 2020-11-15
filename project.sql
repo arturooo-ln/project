@@ -1,10 +1,13 @@
 CREATE TABLE `admin` (
   `adminId` int(10) NOT NULL,
   `adminUsername` varchar(25) NOT NULL,
-  `adminPassword` varchar(250) NOT NULL
+  `adminPassword` varchar(250) NOT NULL,
+  `adminStatus` enum('admin','employee') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-INSERT INTO `admin` (`adminId`, `adminUsername`, `adminPassword`) VALUES
-(1,'admin', '0192023a7bbd73250516f069df18b500');
+
+INSERT INTO `admin` (`adminId`, `adminUsername`, `adminPassword`, `adminStatus`) VALUES
+(1,'admin', '0192023a7bbd73250516f069df18b500', 'admin');
+
 CREATE TABLE `users` (
   `userId` int(11) NOT NULL,
   `userName` varchar(50) NOT NULL,
@@ -16,14 +19,17 @@ CREATE TABLE `users` (
   `userActivation` varchar(250) NOT NULL,
   `userStatus` enum('not verified','verified') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `brand` (
   `brandId` int(11) NOT NULL,
   `brandName` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `category` (
   `categoryId` int(11) NOT NULL,
   `categoryName` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `orderDetail` (
   `orderId` int(10) NOT NULL,
   `userId` int(11) NOT NULL,
@@ -37,6 +43,7 @@ CREATE TABLE `orderDetail` (
   `productQuantity` int(15) DEFAULT NULL,
   `totalPrice` int(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `orderProduct` (
   `orderId` int(10) NOT NULL,
   `orderproductId` int(11) NOT NULL,
@@ -45,6 +52,7 @@ CREATE TABLE `orderProduct` (
   `productPrice` int(15) NOT NULL,
   `details` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `orderPayment` (
   `paymentId` int(10) NOT NULL,
   `orderId` int(10) NOT NULL,
@@ -53,8 +61,9 @@ CREATE TABLE `orderPayment` (
   `cardName` varchar(50) NOT NULL,
   `cardNumber` varchar(20) NOT NULL,
   `cardCode` int(3) NOT NULL,
-  `status` varchar(50) NOT NULL
+  `status` enum('zatwierdzono','niezatwierdzono') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `product` (
   `productId` int(11) NOT NULL,
   `productName` varchar(50) NOT NULL,
@@ -63,27 +72,37 @@ CREATE TABLE `product` (
   `productTitle` varchar(50) NOT NULL,
   `productPrice` varchar(50) NOT NULL,
   `productDiscription` varchar(50) NOT NULL,
-  `productImage` BLOB NOT NULL
+  `productImage` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`adminId`);
+
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userId`);
+
 ALTER TABLE `brand`
   ADD PRIMARY KEY (`brandId`);
+
 ALTER TABLE `category`
   ADD PRIMARY KEY (`categoryId`);
+
 ALTER TABLE `orderDetail`
   ADD PRIMARY KEY (`orderId`),
   ADD KEY `users` (`userId`);
+
 ALTER TABLE `product`
   ADD PRIMARY KEY (`productId`);
-  ALTER TABLE `orderPayment`
-  ADD PRIMARY KEY (`paymentId`);
-  ALTER TABLE `orderProduct`
-  ADD PRIMARY KEY (`orderproductId`);
-  
+
+ALTER TABLE `orderPayment`
+  ADD PRIMARY KEY (`paymentId`),
+  ADD KEY `orderProduct` (`orderId`),
+  ADD KEY `users` (`userId`);
+
+ALTER TABLE `orderProduct`
+  ADD PRIMARY KEY (`orderproductId`),
+  ADD KEY `orderDetail` (`orderId`),
+  ADD KEY `product` (`productId`);
   
 ALTER TABLE `admin`
   MODIFY `adminId` int(11) NOT NULL AUTO_INCREMENT;

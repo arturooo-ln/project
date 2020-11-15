@@ -1,12 +1,12 @@
 <?php
 include('connect.php');
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['userId'])) {
     header("location:index.php");
 }
 $message = '';
-$first_name = '';
-$last_name = '';
-$mobile = '';
+$userFirstName = '';
+$userLastName = '';
+$userPhone = '';
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -15,41 +15,42 @@ require_once 'phpmailer/PHPMailer.php';
 require_once 'phpmailer/SMTP.php';
 $mail = new PHPMailer(true);
 if (isset($_POST["register"])) {
-    $query = "SELECT * FROM register_user WHERE user_email = :user_email";
+    $query = "SELECT * FROM users WHERE userEmail = :userEmail";
     $statement = $connect->prepare($query);
     $statement->execute(
         array(
-            ':user_email'    =>    $_POST['user_email']
+            ':userEmail'    =>    $_POST['userEmail']
         )
     );
     $no_of_row = $statement->rowCount();
     if ($no_of_row > 0) {
         $message = '<label class="text-danger" >Ten email istnieje już w naszej bazie </label>';
-    } else {
-        $user_password = trim($_POST["user_password"]);
-        $user_password = password_hash($user_password, PASSWORD_DEFAULT);
-        $user_activation_code = md5(rand());
-        $insert_query = "INSERT INTO register_user (user_name,first_name, last_name, mobile, user_email, user_password, user_activation_code, user_email_status) VALUES (:user_name,:first_name, :last_name, :mobile, :user_email, :user_password, :user_activation_code, :user_email_status)";
+    } 
+    else {
+        $userPassword = trim($_POST["userPassword"]);
+        $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+        $userActivation = md5(rand());
+        $insert_query = "INSERT INTO users (userName,userFirstName, userLastName, userPhone, userEmail, userPassword, userActivation, userStatus) VALUES (:userName,:userFirstName, :userLastName, :userPhone, :userEmail, :userPassword, :userActivation, :userStatus)";
         $statement = $connect->prepare($insert_query);
         $statement->execute(
             array(
-                ':user_name'            =>    $_POST['user_name'],
-                ':first_name'           =>    $_POST['first_name'],
-                ':last_name'            =>    $_POST['last_name'],
-                ':mobile'               =>    $_POST['mobile'],
-                ':user_email'           =>    $_POST['user_email'],
-                ':user_password'        =>    $user_password,
-                ':user_activation_code' =>    $user_activation_code,
-                ':user_email_status'    =>    'not verified'
+                ':userName'             =>    $_POST['userName'],
+                ':userFirstName'        =>    $_POST['userFirstName'],
+                ':userLastName'         =>    $_POST['userLastName'],
+                ':userPhone'            =>    $_POST['userPhone'],
+                ':userEmail'            =>    $_POST['userEmail'],
+                ':userPassword'         =>    $userPassword,
+                ':userActivation'       =>    $userActivation,
+                ':userStatus'           =>    'not verified'
             )
         );
         $result = $statement->fetchAll();
         if (isset($result)) {
             $base_url = "http://localhost/login/admin/";
             $mail_body = "
-			<p>Witamy cię" . $_POST['user_name'] . ",</p>
+			<p>Witamy cię" . $_POST['userName'] . ",</p>
             <p>Zostałeś pomyślnie zarejestrowany w naszym serwisie aby aktywowac swoje konto wejdz w ten link</p>
-            <p>" . $base_url . "verification.php?activation_code=" . $user_activation_code . "</p>
+            <p>" . $base_url . "verification.php?activation_code=" . $userActivation . "</p>
             <p>Dziękujemy i zyczymy udanego korzystania z naszego portalu</p>
             <p>Artur Chrominski | Partyk Jurzyk | Patryk Bielecki</p>
 			";
@@ -63,7 +64,7 @@ if (isset($_POST["register"])) {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->From = '';//email
             $mail->FromName = 'Mail Weryfikacyjny TEPTA';
-            $mail->AddAddress($_POST['user_email'], $_POST['user_name']);
+            $mail->AddAddress($_POST['userEmail'], $_POST['userName']);
             $mail->WordWrap = 50;
             $mail->IsHTML(true);
             $mail->Subject = 'Weryfikacyja';
@@ -92,38 +93,38 @@ include 'head.php';
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Nazwa użytkownika</label>
-                        <input type="text" name="user_name" class="form-control" required />
+                        <input type="text" name="userName" class="form-control" required />
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Imię</label>
-                        <input type="text" name="first_name" class="form-control" required />
+                        <input type="text" name="userFirstName" class="form-control" required />
                     </div>
                 </div>
 
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Nazwisko</label>
-                        <input type="text" name="last_name" class="form-control" required />
+                        <input type="text" name="userLastName" class="form-control" required />
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Telefon</label>
-                        <input type="number" name="mobile" class="form-control" required />
+                        <input type="number" name="userPhone" class="form-control" required />
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Adres Email</label>
-                        <input type="email" name="user_email" class="form-control" required />
+                        <input type="email" name="userEmail" class="form-control" required />
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         <label>Hasło</label>
-                        <input type="password" name="user_password" class="form-control" required />
+                        <input type="password" name="userPassword" class="form-control" required />
                     </div>
                 </div>
                 <div class="col-md-9">
