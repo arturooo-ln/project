@@ -3,20 +3,20 @@ include('connect.php');
 try {
      $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
      if (isset($_POST["login"])) {
-          if (empty($_POST["username"]) || empty($_POST["password"])) {
+          if (empty($_POST["adminUsername"]) || empty($_POST["adminPassword"])) {
                $message = '<label>W każde pole wstaw odpowiednie dane!!!</label>';
           } else {
-               $query = "SELECT * FROM users WHERE username = :username AND password = :password";
+               $query = "SELECT * FROM admin WHERE adminUsername = :adminUsername AND adminPassword = :adminPassword";
                $statement = $connect->prepare($query);
                $statement->execute(
                     array(
-                         'username'     =>     $_POST["username"],
-                         'password'     =>     $_POST["password"]
+                         'adminUsername'     =>     $_POST["adminUsername"],
+                         'adminPassword'     =>     $_POST["adminPassword"]
                     )
                );
                $count = $statement->rowCount();
                if ($count > 0) {
-                    $_SESSION["username"] = $_POST["username"];
+                    $_SESSION["adminUsername"] = $_POST["adminUsername"];
                     header("location:login_success.php");
                } else {
                     $message = '<label>Podałeś złe dane spróbuj ponownie</label>';
@@ -56,12 +56,12 @@ try {
                <label>
                     <h2>Nazwa użytkownika</h2>
                </label>
-               <input type="text" name="username" class="form-control" />
+               <input type="text" name="adminUsername" class="form-control" />
                <br />
                <label>
                     <h2>Hasło</h2>
                </label>
-               <input type="password" name="password" class="form-control" />
+               <input type="password" name="adminPassword" class="form-control" />
                <br />
                <input type="submit" name="login" class="btn btn-primary  btn-lg" value="Zaloguj się do panelu" />
           </form>

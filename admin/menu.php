@@ -1,9 +1,9 @@
 <div class="col-md-2">
   <div class="sidebar">
-    <a class="active" href="index.php?page=orders">Zamówienia</a>
-    <a href="index.php?page=addProduct">Dodaj produkt</a>
-    <a href="index.php?page=logout">Lista produktów</a>
-    <a href="index.php?page=user">Użytkownicy</a>
-    <a href="index.php?page=head">Kategorie</a>
+    <a class="active" href="viewOrder.php">Zamówienia</a>
+    <a href="viewProduct.php">Produkty</a>
+    <a href="addUser.php">Użytkownicy</a>
+    <a href="Category_Brand.php">Kategorie i Marki</a>
+    <a href="Category_Brand.php">Użytkownicy panelu</a>
   </div>
 </div>
