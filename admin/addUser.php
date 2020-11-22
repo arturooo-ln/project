@@ -25,8 +25,7 @@ if (isset($_POST["register"])) {
     $no_of_row = $statement->rowCount();
     if ($no_of_row > 0) {
         $message = '<label class="text-danger" >Ten email istnieje już w naszej bazie </label>';
-    } 
-    else {
+    } else {
         $userPassword = trim($_POST["userPassword"]);
         $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
         $userActivation = md5(rand());
@@ -59,10 +58,10 @@ if (isset($_POST["register"])) {
             $mail->Host = 'smtp.gmail.com';
             $mail->Port = '587';
             $mail->SMTPAuth = true;
-            $mail->Username = '';//email
-            $mail->Password = '';//hasło
+            $mail->Username = ''; //email
+            $mail->Password = ''; //hasło
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->From = '';//email
+            $mail->From = ''; //email
             $mail->FromName = 'Mail Weryfikacyjny TEPTA';
             $mail->AddAddress($_POST['userEmail'], $_POST['userName']);
             $mail->WordWrap = 50;
@@ -79,6 +78,7 @@ if (isset($_POST["register"])) {
 <?php
 include 'head.php';
 ?>
+
 <body>
     <?php
     include 'navbar.php'
@@ -88,6 +88,12 @@ include 'head.php';
         include 'menu.php'
         ?>
         <div class="col-md-9 items">
+            <legend>
+                <h2><b>Dodaj użytkownika podstawowego</b></h2>
+            </legend>
+
+
+
             <form method="post" id="register_form">
                 <?php echo $message; ?>
                 <div class="col-md-9">
