@@ -1,0 +1,178 @@
+.button{
+	background-color: #096ee0;
+	margin-top: 5%;
+	font-size: 15px;
+	color:white;
+	cursor: pointer;
+	border: 1px;
+	border-radius: 1px;
+	-webkit-box-shadow: 5px 11px 15px 9px rgba(146,146,146,0.5); 
+	box-shadow: 5px 11px 15px 9px rgba(146,146,146,0.5);
+}
+
+.product_img{
+	width:100%; 
+	height: 100%;
+}
+
+.product_name{
+	font-size: 50px;
+	font-family: inherit;
+	color:black;
+}
+.product_price{
+	font-size: 25px;
+	color:rgb(36, 34, 34);
+}
+
+.quantity{
+	padding-top: 10%;
+}
+.description{
+	padding-top: 10%;
+	font-size: 19px; 
+	color: black; 
+	font-family: italic;
+}
+.cart_thread{
+	font-size:20px;
+}
+.buttons {
+	text-align: right;
+	padding-top:2%;
+}
+.total
+{
+	text-align: right;
+}
+.cart_img{
+	height: 100px;
+	width: 100px;
+}
+.cart_quantity{
+	height:50px;
+}
+.cart_remove{
+color: red;
+font-size: 20px;
+}
+.cart_name{
+color: black;
+font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+	position: relative;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+.link-icons {
+	font-size: 18px;
+	color: #4e5c70;
+	padding: 0 10px;
+}
+
+.link-icons a:hover {
+	color: #3d7fdb;
+}
+
+.price {
+	color: black;
+	font-size: 20px;
+}
+
+.name {
+	color: black;
+	font-size: 20px;
+}
+
+
+
+
+
+
+
+header .link-icons {
+	display: flex;
+	flex-grow: 1;
+	flex-basis: 0;
+	justify-content: flex-end;
+	align-items: center;
+	position: relative;
+}
+
+header .link-icons a {
+	text-decoration: none;
+	color: #4e5c70;
+	padding: 0 10px;
+}
+
+header .link-icons a span {
+	display: inline-block;
+	text-align: center;
+	background-color: #63748e;
+	border-radius: 50%;
+	color: #FFFFFF;
+	font-size: 12px;
+	line-height: 16px;
+	width: 16px;
+	height: 16px;
+	font-weight: bold;
+	position: absolute;
+	top: 22px;
+	right: 0;
+}
+
+.final_price {
+	padding-right: 30px;
+	font-size: 20px;
+	color: #000000;
+}
+
+.cart_price {
+	color: #000000;
+	font-size: 20px;
+}
+
+main .cart .buttons {
+	text-align: right;
+	padding-bottom: 40px;
+}
+
+.cart_btn {
+	margin-left: 25px;
+	padding: 10px 25px;
+	border: 0;
+	background: #3d7fdb;
+	color: #FFFFFF;
+	font-size: 17px;
+	border-radius: 1px;
+}
+.cart_btn_update{
+	margin-left: 25px;
+	padding: 10px 25px;
+	border: 0;
+	background: #fac71f;
+	color: #FFFFFF;
+	font-size: 17px;
+	border-radius: 1px;
+}
