@@ -1,6 +1,6 @@
 <?php
 require_once ('connect.php');
-move_uploaded_file($_FILES["image"]["tmp_name"],"uploads/" . $_FILES["image"]["name"]);	
+move_uploaded_file($_FILES["image"]["tmp_name"],"imgs/" . $_FILES["image"]["name"]);	
 $location=$_FILES["image"]["name"];
 $productName= $_POST['productName'];
 $productBrand= $_POST['productBrand'];

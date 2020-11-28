@@ -12,7 +12,7 @@ if(ISSET($_POST['category'])){
     }
     
     $connect = null;
-    header('location:Category_Brand.php');
+    header('location: Category_Brand.php');
 }
 
 if(ISSET($_POST['brand'])){
@@ -25,7 +25,7 @@ if(ISSET($_POST['brand'])){
         echo $e->getMessage();
     }
     $connect = null;
-    header('location:Category_Brand.php');
+    header('location: Category_Brand.php');
 }
 
 ?>

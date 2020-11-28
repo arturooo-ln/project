@@ -27,14 +27,14 @@ include 'connect.php';
                 <tbody>
                     <?php
                     require_once('connect.php');
-                    $result = $connect->prepare("SELECT * FROM product GROUP BY productId ASC");
+                    $result = $connect->prepare("SELECT * FROM product GROUP BY id ASC");
                     $result->execute();
                     for ($i = 0; $row = $result->fetch(); $i++) {
-                        $id = $row['productId'];
+                        $id = $row['id'];
                     ?>
                         <tr>
                             <td>
-                                <h4> <?php echo $row['productId']; ?></h4>
+                                <h4> <?php echo $row['id']; ?></h4>
                             </td>
                             <td>
                                 <h4> <?php echo $row['productName']; ?></h4>
@@ -56,7 +56,7 @@ include 'connect.php';
                             </td>
                             <td>
                                 <?php if ($row['productImage'] != "") : ?>
-                                    <img src="uploads/<?php echo $row['productImage']; ?>" width="200px" height="200px">
+                                    <img src="imgs/<?php echo $row['productImage']; ?>" width="200px" height="200px">
                                 <?php endif; ?>
                             </td>
                             <td><a href="editProduct.php<?php echo '?id=' . $id; ?>" class="btn btn-info">Edit</a></td>
