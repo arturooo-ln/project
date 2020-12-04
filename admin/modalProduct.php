@@ -59,8 +59,12 @@
             <textarea name="productDiscription" class="form-control" rows="5" id="comment" required></textarea>
           </div>
           <div class="form-group">
+            <label>Ilość</label>
+            <input type="text" name="productQuantity" class="form-control" required />
+          </div>
+          <div class="form-group">
             <label>Zdjęcie</label>
-            <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+            <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1" required>
           </div>
       </div>
       <div class="modal-footer">

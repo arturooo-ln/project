@@ -9,7 +9,7 @@ include 'connect.php';
         <?php include 'menu.php' ?>
         <div class="col-md-10 items">
         <?php include('modalProduct.php'); ?>
-            <table class="table table-striped table-bordered">
+            <table class="table table-responsive table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">ID</th>
@@ -19,6 +19,7 @@ include 'connect.php';
                         <th scope="col">Tytuł</th>
                         <th scope="col">Cena</th>
                         <th scope="col">Opis</th>
+                        <th scope="col">Ilość</th>
                         <th scope="col">Zdjęcie</th>
                         <th scope="col">Edytuj</th>
                         <th scope="col">Usuń</th>
@@ -53,6 +54,9 @@ include 'connect.php';
                             </td>
                             <td>
                                 <h4> <?php echo $row['productDiscription']; ?></h4>
+                            </td>
+                            <td>
+                                <h4> <?php echo $row['productQuantity']; ?></h4>
                             </td>
                             <td>
                                 <?php if ($row['productImage'] != "") : ?>
