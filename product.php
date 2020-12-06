@@ -15,10 +15,11 @@ if (isset($_GET['id'])) {
 <div class="container">
     <div class="row">
         <div class="col-7">
-            <img class="product_img" src="imgs/<?= $product['productImage'] ?>" alt="<?= $product['productName'] ?>">
+            <img class="product_img" src="admin/imgs/<?= $product['productImage'] ?>" alt="<?= $product['productName'] ?>">
         </div>
         <div class="col-5">
             <h1 class="product_name"><?= $product['productName'] ?></h1>
+            <p class="brand_category"><?= $product['productCategory'] ?> / <?= $product['productBrand'] ?></p>
             <span class="product_price"><?= $product['productPrice'] ?> zł </span>
             <form action="index.php?page=cart" method="post">
                 <input type="number" name="quantity" class="form-control cart_quantity" min="1" max="<?= $product['productQuantity'] ?>" placeholder="Podaj ilość" required>
@@ -26,10 +27,6 @@ if (isset($_GET['id'])) {
                 <p><button class="button btn-lg" type="submit">Dodaj do koszyka</button></p>
             </form>
             <div class="description"><?= $product['productDiscription'] ?></div>
+            </.>
         </div>
     </div>
-</div>
-
-
-
-
