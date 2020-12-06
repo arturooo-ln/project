@@ -1,7 +1,6 @@
 <?php
 function pdo_connect_mysql()
 {
-    // Update the details below with your MySQL details
     $DATABASE_HOST = 'localhost';
     $DATABASE_USER = 'root';
     $DATABASE_PASS = '';
@@ -12,9 +11,11 @@ function pdo_connect_mysql()
         die('Failed to connect to database!');
     }
 }
+define('account_required', true);
 function template_header($title)
 {
     $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+    $logout_link = isset($_SESSION['account_loggedin']) ? '<a title="Logout" href="logout.php"><i class="fas fa-sign-out-alt"></i></a>' : '';
     echo <<<EOT
 <!DOCTYPE html>
 <html>
@@ -37,7 +38,7 @@ function template_header($title)
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="index.php">Strona główna</a>
-                <a class="nav-item nav-link" href="#">Twoje konto</a>
+                <a  class="nav-item nav-link" href="index.php?page=login">Konto</a>
             </div>
         </div>
         <div class="link-icons">
@@ -45,9 +46,8 @@ function template_header($title)
                 <i class="fas fa-shopping-cart"></i>
                 <span>$num_items_in_cart</span>
             </a>
+            $logout_link
         </div>
     </nav>
-
-
 EOT;
 }

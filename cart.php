@@ -21,6 +21,8 @@ if (isset($_POST['product_id'], $_POST['quantity']) && is_numeric($_POST['produc
 }
 if (isset($_GET['remove']) && is_numeric($_GET['remove']) && isset($_SESSION['cart']) && isset($_SESSION['cart'][$_GET['remove']])) {
     unset($_SESSION['cart'][$_GET['remove']]);
+    header('location: index.php?page=cart');
+    exit;
 }
 if (isset($_POST['update']) && isset($_SESSION['cart'])) {
     foreach ($_POST as $k => $v) {
@@ -35,8 +37,9 @@ if (isset($_POST['update']) && isset($_SESSION['cart'])) {
     header('location: index.php?page=cart');
     exit;
 }
-if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-    header('Location: index.php?page=placeorder');
+
+if (isset($_POST['checkout']) && isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    header('Location: index.php?page=checkout');
     exit;
 }
 $products_in_cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
@@ -83,7 +86,7 @@ if ($products_in_cart) {
                                 <tr>
                                     <td class="img">
                                         <a href="index.php?page=product&id=<?= $product['id'] ?>">
-                                            <img src="imgs/<?= $product['productImage'] ?>" class="cart_img" alt="<?= $product['productName'] ?>">
+                                            <img src="admin/imgs/<?= $product['productImage'] ?>" class="cart_img" alt="<?= $product['productName'] ?>">
                                         </a>
                                     </td>
                                     <td><a class="cart_name" href="index.php?page=product&id=<?= $product['id'] ?>"><?= $product['productName'] ?></a></td>
@@ -106,7 +109,7 @@ if ($products_in_cart) {
                 </div>
                 <div class="buttons">
                     <input type="submit" class="cart_btn_update" value="Zaktualizuj" name="update">
-                    <input type="submit" class="cart_btn" value="Przejdź dalej" name="placeorder">
+                    <input type="submit" class="cart_btn" value="Przejdź dalej" name="checkout">
                 </div>
             </div>
         </form>
