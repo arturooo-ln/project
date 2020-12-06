@@ -11,10 +11,10 @@ $ID = $_GET['id'];
     <div class="col-md-9 items">
         <?php
         include('connect.php');
-        $result = $connect->prepare("SELECT * FROM product where productId='$ID'");
+        $result = $connect->prepare("SELECT * FROM product where id='$ID'");
         $result->execute();
         for ($i = 0; $row = $result->fetch(); $i++) {
-            $id = $row['productId'];
+            $id = $row['id'];
         ?>
             <form class="form-horizontal" method="post" action="edit.php<?php echo '?productId=' . $id; ?>" enctype="multipart/form-data">
                 <legend>
