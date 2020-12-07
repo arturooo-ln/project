@@ -1,10 +1,10 @@
 <?php
 function pdo_connect_mysql()
 {
-    $DATABASE_HOST = 'localhost';
-    $DATABASE_USER = 'root';
-    $DATABASE_PASS = '';
-    $DATABASE_NAME = 'project';
+    $DATABASE_HOST = 'mysql.ct8.pl';
+    $DATABASE_USER = 'm19073_Patryk345';
+    $DATABASE_PASS = 'Jurzyk#33';
+    $DATABASE_NAME = 'm19073_projekt_sklep';
     try {
         return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
     } catch (PDOException $exception) {
