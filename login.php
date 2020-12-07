@@ -18,20 +18,28 @@ if (isset($_POST['login'], $_POST['userEmail'], $_POST['userPassword']) && filte
     $stmt = $pdo->prepare('SELECT * FROM users WHERE userEmail = ?');
     $stmt->execute([$_POST['userEmail']]);
     $account = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($account && password_verify($_POST['userPassword'], $account['userPassword'])) {
-        session_regenerate_id();
-        $_SESSION['account_loggedin'] = TRUE;
-        $_SESSION['account_id'] = $account['userId'];
-        $_SESSION['account_admin'] = $account['admin'];
-        $products_in_cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
-        if ($products_in_cart) {
-            header('Location: index.php?page=checkout');
+
+
+
+
+    if ($account['userStatus'] == 'verified') {
+        if ($account && password_verify($_POST['userPassword'], $account['userPassword'])) {
+            session_regenerate_id();
+            $_SESSION['account_loggedin'] = TRUE;
+            $_SESSION['account_id'] = $account['userId'];
+            $_SESSION['account_admin'] = $account['admin'] == 'admin';
+            $products_in_cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+            if ($products_in_cart) {
+                header('Location: index.php?page=checkout');
+            } else {
+                header('Location: index.php?page=login');
+            }
+            exit;
         } else {
-            header('Location: index.php?page=login');
+            $error = 'Incorrect Email/Password!';
         }
-        exit;
     } else {
-        $error = 'Incorrect Email/Password!';
+        $error = "<label class='text-danger'>Twój mail nie jest zweryfikowany. Jeżeli jestes zarejestrowany sprawdz maila.</label>";
     }
 }
 if (isset($_POST["register"])) {
@@ -113,6 +121,9 @@ if (isset($_POST["register"])) {
                 <legend>
                     <h1>Zaloguj się</h1>
                 </legend>
+                <?php if ($error) : ?>
+                    <p class="error"><?= $error ?></p>
+                <?php endif; ?>
                 <form action="index.php?page=login" method="post">
                     <div class="row">
                         <div class="col">
@@ -134,9 +145,6 @@ if (isset($_POST["register"])) {
                         <input name="login" type="submit" value="Zaloguj się" class="login_btn">
                     </div>
                 </form>
-                <?php if ($error) : ?>
-                    <p class="error"><?= $error ?></p>
-                <?php endif; ?>
             </div>
 
             <div class="col-6">
