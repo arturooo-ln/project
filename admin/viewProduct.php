@@ -64,7 +64,7 @@ include 'connect.php';
                                 <?php endif; ?>
                             </td>
                             <td><a href="editProduct.php<?php echo '?id=' . $id; ?>" class="btn btn-info">Edit</a></td>
-                            <td><a href="deleteProduct.php<?php echo '?productId=' . $id; ?>" class="btn btn-danger">Delete </a></td>
+                            <td><a href="deleteProduct.php<?php echo '?id=' . $id; ?>" class="btn btn-danger">Delete </a></td>
                         </tr>
                     <?php } ?>
                 </tbody>

@@ -15,7 +15,7 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="row">
         <?php foreach ($recently_added_products as $product) : ?>
             <div class="card border-0" href="index.php?page=product&id=<?= $product['id'] ?>" class="product">
-                <img src="admin/imgs/<?= $product['productImage'] ?>" class="card-img-top" width="100%" height="350px" alt="<?= $product['productName'] ?>">
+                <img src="admin/imgs/<?= $product['productImage'] ?>" class="card-img-top" width="500px" height="350px" alt="<?= $product['productName'] ?>">
                 <div class="card-body">
                     <p class="card-title name"><?= $product['productName'] ?></p>
                     <p class="price"><?= $product['productPrice'] ?> zł </p>

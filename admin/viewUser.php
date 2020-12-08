@@ -1,7 +1,11 @@
 <?php
 include 'head.php';
 include 'connect.php';
+$stmt = $connect->prepare('SELECT * FROM users');
+$stmt->execute();
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <body>
     <?php include 'navbar.php'; ?>
     <div class="row">
@@ -20,33 +24,34 @@ include 'connect.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    require_once('connect.php');
-                    $result = $connect->prepare("SELECT * FROM users GROUP BY userId ASC");
-                    $result->execute();
-                    for ($i = 0; $row = $result->fetch(); $i++) {
-                        $id = $row['userId'];
-                    ?>
+                    <?php if (empty($users)) : ?>
                         <tr>
-                            <td>
-                                <h4> <?php echo $row['userId']; ?></h4>
-                            </td>
-                            <td>
-                                <h4> <?php echo $row['userName']; ?></h4>
-                            </td>
-                            <td>
-                                <h4> <?php echo $row['userEmail']; ?></h4>
-                            </td>
-                            <td>
-                                <h4> <?php echo $row['userStatus']; ?></h4>
-                            </td>
-                            <td>
-                                <h4> <?php echo $row['admin']; ?></h4>
-                            </td>
-                            <td><a href="editProduct.php<?php echo '?id=' . $id; ?>" class="btn btn-info">Edit</a></td>
-                            <td><a href="deleteProduct.php<?php echo '?productId=' . $id; ?>" class="btn btn-danger">Delete </a></td>
+                            <td colspan="8" style="text-align:center;">There are no categories</td>
                         </tr>
-                    <?php } ?>
+                    <?php else : ?>
+                        <?php foreach ($users as $user) : ?>
+                            <tr>
+                                <td>
+                                    <h4><?=$user['userId']?></h4>
+                                </td>
+                                <td>
+                                    <h4><?=$user['userName']?></h4>
+                                </td>
+                                <td>
+                                    <h4><?=$user['userEmail']?></h4>
+                                </td>
+                                <td>
+                                    <h4><?=$user['userStatus']?></h4>
+                                </td>
+                                <td>
+                                    <h4><?=$user['admin']?></h4>
+                                </td>
+                                <td><a href="editUser.php<?php echo '?id=' . $user['userId']; ?>" class="btn btn-info">Edit</a></td>
+                                <td><a href="deleteUser.php<?php echo '?id=' . $user['userId']; ?>" class="btn btn-danger">Delete </a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
                 </tbody>
             </table>
         </div>

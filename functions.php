@@ -1,10 +1,10 @@
 <?php
 function pdo_connect_mysql()
 {
-    $DATABASE_HOST = 'mysql.ct8.pl';
-    $DATABASE_USER = 'm19073_Patryk345';
-    $DATABASE_PASS = 'Jurzyk#33';
-    $DATABASE_NAME = 'm19073_projekt_sklep';
+    $DATABASE_HOST = 'localhost';
+    $DATABASE_USER = 'root';
+    $DATABASE_PASS = '';
+    $DATABASE_NAME = 'project';
     try {
         return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
     } catch (PDOException $exception) {
@@ -15,6 +15,7 @@ define('account_required', true);
 function template_header($title)
 {
     $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+    $admin_link = isset($_SESSION['account_loggedin']) && $_SESSION['account_admin'] ? '<a class="nav-item nav-link" title="Admin" href="admin/index.php" target="_blank">Admin</a>' : '';
     $logout_link = isset($_SESSION['account_loggedin']) ? '<a title="Logout" href="logout.php"><i class="fas fa-sign-out-alt"></i></a>' : '';
     echo <<<EOT
 <!DOCTYPE html>
@@ -38,7 +39,8 @@ function template_header($title)
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="index.php">Strona główna</a>
-                <a  class="nav-item nav-link" href="index.php?page=login">Konto</a>
+                <a class="nav-item nav-link" href="index.php?page=login">Konto</a>
+                $admin_link 
             </div>
         </div>
         <div class="link-icons">
@@ -51,3 +53,4 @@ function template_header($title)
     </nav>
 EOT;
 }
+

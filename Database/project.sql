@@ -1,23 +1,18 @@
-CREATE TABLE `admin` (
-  `adminId` int(10) NOT NULL,
-  `adminUsername` varchar(25) NOT NULL,
-  `adminPassword` varchar(250) NOT NULL,
-  `adminStatus` enum('admin','employee') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `admin` (`adminId`, `adminUsername`, `adminPassword`, `adminStatus`) VALUES
-(1,'admin', '0192023a7bbd73250516f069df18b500', 'admin');
-
 CREATE TABLE `users` (
   `userId` int(11) NOT NULL,
   `userName` varchar(50) NOT NULL,
+  `userEmail` varchar(50) NOT NULL,
+  `userPassword` varchar(50) NOT NULL,
   `userFirstName` varchar(50) NOT NULL,
   `userLastName` varchar(50) NOT NULL,
   `userPhone` varchar(20) NOT NULL,
-  `userEmail` varchar(50) NOT NULL,
-  `userPassword` varchar(50) NOT NULL,
+  `userSreet` varchar(50) NOT NULL,
+  `userCity` varchar(50) NOT NULL,
+  `userZip` varchar(50) NOT NULL,
+  `userProvince` varchar(50) NOT NULL,
   `userActivation` varchar(250) NOT NULL,
-  `userStatus` enum('not verified','verified') NOT NULL
+  `userStatus` enum('not verified','verified') NOT NULL,
+  `admin` enum('admin','user') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `brand` (
@@ -33,15 +28,15 @@ CREATE TABLE `category` (
 CREATE TABLE `orderDetail` (
   `orderId` int(10) NOT NULL,
   `userId` int(11) NOT NULL,
-  `paymentId` int(11) NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `adres` varchar(50) NOT NULL,
-  `postalCode` int(10) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `voivodeship` varchar(50) NOT NULL,
-  `productQuantity` int(15) DEFAULT NULL,
-  `totalPrice` int(15) DEFAULT NULL
+  `paymentStatus` int(11) NOT NULL,
+  `userFirstName` varchar(50) NOT NULL,
+  `userLastName` varchar(50) NOT NULL,
+  `userPhone` varchar(20) NOT NULL,
+  `userSreet` varchar(50) NOT NULL,
+  `userCity` varchar(50) NOT NULL,
+  `userZip` varchar(50) NOT NULL,
+  `userProvince` varchar(50) NOT NULL,
+  `date_order` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `orderProduct` (
@@ -50,16 +45,16 @@ CREATE TABLE `orderProduct` (
   `productId` int(11) NOT NULL,
   `productQuantity` int(15) DEFAULT NULL,
   `productPrice` int(15) NOT NULL,
-  `details` varchar(50) NOT NULL
+  `totalPrice` float(15) DEFAULT NULL,
+  `details` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `orderPayment` (
   `paymentId` int(10) NOT NULL,
   `orderId` int(10) NOT NULL,
   `userId` int(11) NOT NULL,
-  `paymenttype` varchar(30) NOT NULL,
   `cardName` varchar(50) NOT NULL,
-  `cardNumber` varchar(20) NOT NULL,
+  `cardNumber` int(20) NOT NULL,
   `cardCode` int(3) NOT NULL,
   `status` enum('zatwierdzono','niezatwierdzono') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -70,13 +65,12 @@ CREATE TABLE `product` (
   `productBrand` varchar(50) NOT NULL,
   `productCategory` varchar(50) NOT NULL,
   `productTitle` varchar(50) NOT NULL,
-  `productPrice` varchar(50) NOT NULL,
-  `productDiscription` varchar(50) NOT NULL,
-  `productImage` varchar(100) NOT NULL
+  `productPrice` float NOT NULL,
+  `productDiscription` text NOT NULL,
+  `productQuantity` int(10) NOT NULL,
+  `productImage` text NOT NULL,
+  `productDate` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`adminId`);
 
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userId`);
@@ -103,9 +97,6 @@ ALTER TABLE `orderProduct`
   ADD PRIMARY KEY (`orderproductId`),
   ADD KEY `orderDetail` (`orderId`),
   ADD KEY `product` (`productId`);
-  
-ALTER TABLE `admin`
-  MODIFY `adminId` int(11) NOT NULL AUTO_INCREMENT;
   
 ALTER TABLE `users`
   MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT;
