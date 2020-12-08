@@ -1,4 +1,4 @@
 <?php    
  session_destroy();  
- header("location:pdo_login.php");  
+ header("location:../index.php");  
  ?>  
